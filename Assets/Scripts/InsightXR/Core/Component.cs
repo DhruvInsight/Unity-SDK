@@ -9,6 +9,11 @@ namespace InsightXR.Core
     {
         private List<SpatialPathDataModel> componentHistory;
 
+        //TODO :- 
+        //we are making a queue here and the data is collected it will be send to the server.
+        //this will not slow down the data collection system.
+        private readonly Queue<SpatialPathDataModel> componentHistoryQueus;
+
         private SpatialPathDataModel tempDataCollector;
 
         private void OnEnable(){
