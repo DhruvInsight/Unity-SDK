@@ -151,6 +151,8 @@ MonoBehaviour:
   DataCollectionChannel: {fileID: 0}
   ShotEventChannel: {fileID: 0}
   DataDistributionChannel: {fileID: 0}
+  status: {fileID: 0}
+  left: {fileID: 0}
 --- !u!114 &5860940500139866721
 MonoBehaviour:
   m_ObjectHideFlags: 0
