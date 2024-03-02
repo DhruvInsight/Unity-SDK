@@ -13,19 +13,19 @@ public class TargetSelector : MonoBehaviour
     }
     private void Update()
     {
-        if(Input.GetMouseButtonDown(0)){
-            var ray = camera.ScreenPointToRay(Input.mousePosition);
-
-            if(Physics.Raycast(ray, out RaycastHit raycastHit)){
-                if(!(raycastHit.collider.gameObject.GetComponent<Target>() == null)){
-                    Vector3 distanceToTarget = raycastHit.point - transform.position;
-                    Vector3 forceDirection   = distanceToTarget.normalized;
-
-                    rigidbody.AddForce(forceDirection * forceSize, ForceMode.Impulse);
-                }
-            }
-            ShotEventChannel.RaiseEvent(true);
-        }
+        // if(Input.GetMouseButtonDown(0)){
+        //     var ray = camera.ScreenPointToRay(Input.mousePosition);
+        //
+        //     if(Physics.Raycast(ray, out RaycastHit raycastHit)){
+        //         if(!(raycastHit.collider.gameObject.GetComponent<Target>() == null)){
+        //             Vector3 distanceToTarget = raycastHit.point - transform.position;
+        //             Vector3 forceDirection   = distanceToTarget.normalized;
+        //
+        //             rigidbody.AddForce(forceDirection * forceSize, ForceMode.Impulse);
+        //         }
+        //     }
+        //     ShotEventChannel.RaiseEvent(true);
+        // }
     }
 
     public void Shoot(Vector3 position)

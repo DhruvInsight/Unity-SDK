@@ -22,45 +22,45 @@ public class DataManager : MonoBehaviour
     private void OnDisable() => DataCollectionChannel.CollectionRequestEvent -= StoreData;
     private void StoreData(string Uid, List<ActionReplayRecord> ActionReplayRecords)
     {
-        if (DataStorage.Count == dataCountOnObject)
-        {
-            DataStorage.Clear();
-        }
-        // if (DataStorage.ContainsKey(Uid)){
-        //     DataStorage[Uid] = ActionReplayRecords;
-        // }else{
+        // if (DataStorage.Count == dataCountOnObject)
+        // {
+        //     DataStorage.Clear();
         // }
-        DataStorage.Add(Uid, ActionReplayRecords);
-
-        if(DataStorage.Count == dataCountOnObject){
-            SaveByteArrayToFile(ConvertToByteArray(), filePath);
-        }
+        // // if (DataStorage.ContainsKey(Uid)){
+        // //     DataStorage[Uid] = ActionReplayRecords;
+        // // }else{
+        // // }
+        // DataStorage.Add(Uid, ActionReplayRecords);
+        //
+        // if(DataStorage.Count == dataCountOnObject){
+        //     SaveByteArrayToFile(ConvertToByteArray(), filePath);
+        // }
     }
     /*
     /TEMP DEBUG SECTION/
     */
     private void Update(){
         //THIS WILL PULL THE FILE FROM THE SERVER.
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Debug.Log("Downloading the file from server");
-            DownloadFile();
-        }
+        // if (Input.GetKeyDown(KeyCode.P))
+        // {
+        //     Debug.Log("Downloading the file from server");
+        //     DownloadFile();
+        // }
     }
-    private async void DownloadFile(){
-        try
-        {
-            // Call the DownloadFile function and wait for its completion
-            byte[] data = await FirebaseFileUploader.Instance.DownloadByteArray("test");
-            Debug.Log("File has downloaded successfully");
-            ConvertFromByteArray(data);
-            DataDistributionChannel.RaiseEvent(DataStorage);
-        }
-        catch (System.Exception ex)
-        {
-            Debug.LogError($"An error occurred during download: {ex.Message}");
-        }
-    }
+    // private async void DownloadFile(){
+    //     try
+    //     {
+    //         // Call the DownloadFile function and wait for its completion
+    //         byte[] data = await FirebaseFileUploader.Instance.DownloadByteArray("test");
+    //         Debug.Log("File has downloaded successfully");
+    //         ConvertFromByteArray(data);
+    //         DataDistributionChannel.RaiseEvent(DataStorage);
+    //     }
+    //     catch (System.Exception ex)
+    //     {
+    //         Debug.LogError($"An error occurred during download: {ex.Message}");
+    //     }
+    // }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////SAVING SECTION///////////////////////////////////////////////////
@@ -72,13 +72,13 @@ public class DataManager : MonoBehaviour
         bf.Serialize(ms, DataStorage);
         return ms.ToArray();
     }
-    private void SaveByteArrayToFile(byte[] byteArray, string filePath) 
-    { 
-        File.WriteAllBytes(filePath, byteArray);
-        // FirebaseFileUploader.Instance.UploadFile(filePath, "test");
-        _ = FirebaseFileUploader.Instance.UploadByteArray(byteArray, "test");
-        Debug.Log("Uploading the file to server");
-    }
+    // private void SaveByteArrayToFile(byte[] byteArray, string filePath) 
+    // { 
+    //     File.WriteAllBytes(filePath, byteArray);
+    //     // FirebaseFileUploader.Instance.UploadFile(filePath, "test");
+    //     _ = FirebaseFileUploader.Instance.UploadByteArray(byteArray, "test");
+    //     Debug.Log("Uploading the file to server");
+    // }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////LOADING SECTION//////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

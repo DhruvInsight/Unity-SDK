@@ -22,14 +22,14 @@ public class ActionReplay : MonoBehaviour
     public XRController left;
     private void Start(){
         rigidbody = GetComponent<Rigidbody>();
-        ShotEventChannel.NetworkCallbackRequested           += ProceedDataCollection;
-        DataDistributionChannel.DistributionRequestEvent    += CollectDataFromSaveFile;
+//        ShotEventChannel.NetworkCallbackRequested           += ProceedDataCollection;
+//        DataDistributionChannel.DistributionRequestEvent    += CollectDataFromSaveFile;
 
-        status = GameObject.Find("Status").GetComponent<TMP_Text>();
+        //status = GameObject.Find("Status").GetComponent<TMP_Text>();
     }
     private void OnDisable() { 
-        ShotEventChannel.NetworkCallbackRequested           -= ProceedDataCollection;
-        DataDistributionChannel.DistributionRequestEvent    -= CollectDataFromSaveFile;
+        // ShotEventChannel.NetworkCallbackRequested           -= ProceedDataCollection;
+        // DataDistributionChannel.DistributionRequestEvent    -= CollectDataFromSaveFile;
     }
     private void ProceedDataCollection(bool shot) => canShot = shot;
     
