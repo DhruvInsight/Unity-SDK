@@ -59,22 +59,6 @@ public class PlayerTracker : MonoBehaviour
 
     private void FixedUpdate()
     {
-        //Checking what the Player is seeing
-        // r = new Ray(_Camtans.position, _Camtans.forward);
-        //
-        // if (Physics.Raycast(r, out hit, Mathf.Infinity))
-        // {
-        //     LookedObject = hit.collider.name;
-        // }
-        // else
-        // {
-        //     Debug.Log("Did not hit anything");
-        // }
-        
-        //Debug.Log("Looking at: "+ LookedObject + " Position: "+ _Camtans.position+ " Rotation: "+ _Camtans.rotation);
-        //Debug.Log( "Position: "+ _Camtans.position+ " Rotation: "+ _Camtans.rotation);
-
-        //Checks if the Button has been pressed. Run code when yes
         if (InputDetector.GetLeftPrimaryDown())
         {
             _recording = !_recording;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.InteropServices;
 using Newtonsoft.Json;
 using TMPro;
 using UnityEngine;
@@ -20,7 +21,8 @@ public class LoadCamData : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(LoadStreamingAsset());
+        GetCamData(Application.persistentDataPath + "/Saves",gameObject.name,"callback", "fallback", "https://gist.githubusercontent.com/DhruvInsight/302c34cde8532b1d1a86256d241b4d21/raw/8787613553b406677993fd98949c5f6aa8a47b85/save.json");
+        //StartCoroutine(LoadStreamingAsset());
     }
 
     // Update is called once per frame
@@ -43,34 +45,28 @@ public class LoadCamData : MonoBehaviour
             transform.rotation = MotionRecord[frame].rotation;
         }
     }
-    
-    private IEnumerator LoadStreamingAsset()
+
+
+    [DllImport("__Internal")]
+    public static extern void GetCamData(string path, string ObjectName, string callback, string fallback, string url);
+
+    public void callback(string camdata)
     {
-        string filePath = Application.streamingAssetsPath + "/SaveCam/CameraData.json";
-
-        // Create a UnityWebRequest to load the file content
-        using (UnityWebRequest www = UnityWebRequest.Get(filePath))
-        {
-            yield return www.SendWebRequest();
-
-            if (www.result == UnityWebRequest.Result.Success)
-            {
-                // Process the loaded content (e.g., parse XML, JSON, etc.)
-                string fileContent = www.downloadHandler.text;
-                Debug.Log(fileContent);
-               
-                 MotionRecord = JsonConvert.DeserializeObject<List<VRPlayerRecord>>(fileContent);
-                 loaded = true;
-                 totalframes = MotionRecord.Count;
-                 frame = 0;
-                 Debug.Log("Loaded Data");
+        Debug.Log("JsLib works!");
+        Debug.Log(camdata);
+        //Debug.Log(File.ReadAllText(Application.persistentDataPath + "/Saves/save.json"));
+        MotionRecord = JsonConvert.DeserializeObject<List<VRPlayerRecord>>(camdata);
+        loaded = true;
+        totalframes = MotionRecord.Count;
+        frame = 0;
+        Debug.Log("Loaded Data");
                 
-                 loaded = true;
-            }
-            else
-            {
-                Debug.LogError("Error");
-            }
-        }
+        loaded = true;
     }
+
+    public void fallback()
+    {
+        Debug.Log("JsLib not working correctly");
+    }
+
 }
